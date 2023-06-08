@@ -1,8 +1,45 @@
 ﻿using linq_csharp_console_proyecto.Class;
 
-LinqQueries jsonData =  new LinqQueries();
+LinqQueries linq = new LinqQueries();
+//IEnumerable<Animal> dtanimal = new List<Animal>();
 
-funImprimirJson(jsonData.TodaLaColecion());
+//Toda la coleccion
+//funImprimirJson(linq.TodaLaColecion());
+
+//Libros despues del 2000
+//funImprimirJson(linq.funReto_01_Where(2000));
+
+//Libros que tienen mas de 250 pags y tienen en el titulo la palabra in action
+//funImprimirJson(linq.funReto_02_Where_pag_serach(250,"in Action"));
+
+//Filtra todos los animales que sean de "color" verde que su "nombre" inicie con una vocal.
+//funImprimirJsonAnimal(linq.funReto_03_Where_filtro_animales("Verde", "I"));
+
+//Todos los libros tienen Status
+//Console.WriteLine($" Todos los libros tienen status? - {linq.TodosLosLibrosTienenStatus()}");
+
+//Si algun libro fue publicado en 2005
+//Console.WriteLine($" Algun libro fue publicado en 2005? - {linq.SiAlgunLibroFuePublicado2005()}");
+
+//Devuelve Coleccion de Datos
+//funImprimirJson(linq.funReto_12_Libros_Python());
+
+//libros de Java ordenados por nombre
+//funImprimirJson(linq.LibrosdeJavaPorNombreAscendente());
+
+//libros que tienen mas de 450 paginas ordernados por cantidad de paginas
+//funImprimirJson(linq.Librosmasde450pagOrdernadorPorNumPagDescendente()); //ok
+
+funImprimirJsonAnimal(linq.fun_animales_ordenados_nombre());
+
+void funImprimirJsonAnimal(IEnumerable<Animal> dt)
+{
+    string formatoTexto = "{0, -60} {1, 15}";
+    foreach (var item in dt)
+    {
+        Console.WriteLine($"{formatoTexto}", item.Nombre, item.Color);
+    }
+}
 
 void funImprimirJson(IEnumerable<Book> dtJson)
 {
