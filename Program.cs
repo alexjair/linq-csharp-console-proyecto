@@ -30,7 +30,31 @@ LinqQueries linq = new LinqQueries();
 //libros que tienen mas de 450 paginas ordernados por cantidad de paginas
 //funImprimirJson(linq.Librosmasde450pagOrdernadorPorNumPagDescendente()); //ok
 
-funImprimirJsonAnimal(linq.fun_animales_ordenados_nombre());
+//Order by
+//funImprimirJsonAnimal(linq.fun_animales_ordenados_nombre());
+
+// Take y Skip
+// los 3 primeros
+//funImprimirJson(linq.Top3_ibrosJavaOrdenadosPorFecha()); //ok
+
+//tercer y caurto libro con mas de 400 paginas
+//funImprimirJson(linq.TerceryCuartoLibroDeMas400Pag());
+
+//Dcaminc
+/*
+Console.WriteLine("Dinamic");
+//tres primeros libros filtrados con Select
+linq.TresPrimeroLibrosDeLaCollecionDinamica();
+Console.WriteLine("Clase");
+//tres primeros libros filtrados con Select
+funImprimirJson(linq.TresPrimeroLibrosDeLaCollecionBook());
+*/
+
+//count
+//Camtidad de Libros entre 200 y 500
+Console.WriteLine($" Cantidad de Libros entre 200 y 500: {linq.funCantidad_libros(200, 500)}");
+
+
 
 void funImprimirJsonAnimal(IEnumerable<Animal> dt)
 {

@@ -36,6 +36,80 @@ namespace linq_csharp_console_proyecto.Class
             this.animalesCollection.Add(new Animal() { Nombre = "Gallina", Color = "Blanco" });
         }
 
+        public long funCantidad_libros(int vNumMin, int vNumMax)
+        {
+            long QSCount = 0;
+
+            //forma correcta
+            QSCount = librosCollection.LongCount(p => p.PageCount >= 200 && p.PageCount <= 500);
+
+            //Using Method Syntax
+            /*
+            QSCount = librosCollection.Where(
+                p => 
+                p.PageCount >= vNumMin &&
+                p.PageCount <= vNumMax
+                )
+                .Count();
+            */
+            //Using Query Syntax
+            /*
+            QSCount = (from p in librosCollection
+                       where 
+                       p.PageCount >= vNumMin &&
+                       p.PageCount <= vNumMax
+                       select p).LongCount();
+            */
+
+            return QSCount;
+        }
+
+        public IEnumerable<Book> TresPrimeroLibrosDeLaCollecionBook()
+        {
+            return librosCollection.Take(3)
+            .Select(
+                p => new Book() { 
+                    Title = p.Title, 
+                    PageCount = p.PageCount 
+                }
+           );
+        }
+
+        //Rerturn una clase dinamica
+        public void TresPrimeroLibrosDeLaCollecionDinamica()
+        {
+            librosCollection.Take(3)
+            .Select(
+                p => new {
+                   p.Title,
+                   p.PageCount
+                }
+            );
+        }
+
+        public IEnumerable<Book> TerceryCuartoLibroDeMas400Pag()
+        {
+            return librosCollection
+            .Where(
+                p => 
+                p.PageCount > 200
+            )
+            .Take(4) //toma los primeros 4 items
+            .Skip(2); //no toma los 2 primeros items
+        }
+
+        public IEnumerable<Book> Top3_ibrosJavaOrdenadosPorFecha()
+        {
+            return librosCollection.Where(
+                p =>
+                p.Categories.Contains("Java") 
+            ).OrderByDescending(
+                p => 
+                p.PublishedDate
+            ).Take(3);
+            //).Take(3);
+        }
+
         public IEnumerable<Animal> fun_animales_ordenados_nombre()
         {
             // Escribe tu código aquí
