@@ -81,12 +81,28 @@ Console.WriteLine($"{myLibroMax.Title} - {myLibroMax.PublishedDate}");
 //Averge
 //Console.WriteLine($" Cantidad promedio de caracteres del titulo de lista: {linq.funPromedioCaracteresTitulos_Lista()}");
 
+//GroupBy
 //Libros publicados a partir del 2000 agrupados por ano
 //ImprimirGrupo(linq.LibrosDespuesdel2000AgrupadosporAno());
 
 //Retorna los datos de la collecion Animales agrupada por Color
-ImprimirGrupoAnimales(linq.AnimalesGroupColor_Reto());
+//ImprimirGrupoAnimales(linq.AnimalesGroupColor_Reto());
 
+//Clausula Lookup
+//var Lista =  linq.funRetirnLista_lookup();
+//ImprimirGrupoDiccionario(Lista, 'S');
+
+//Join!!
+funImprimirJson(linq.InnerJoinLista());
+
+void ImprimirGrupoDiccionario(ILookup<char, Book> ListadeLibros, char letra)
+{
+    Console.WriteLine("{0,-60} {1, 15} {2, 15}\n", "Titulo", "N. Paginas", "Fecha publicacion");
+    foreach (var item in ListadeLibros[letra])
+    {
+        Console.WriteLine("{0,-60} {1, 15} {2, 15}", item.Title, item.PageCount, item.PublishedDate.Date.ToShortDateString());
+    }
+}
 
 void ImprimirGrupoAnimales(IEnumerable<IGrouping<string, Animal>> Lista)
 {

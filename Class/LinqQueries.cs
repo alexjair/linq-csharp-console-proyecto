@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -35,6 +36,52 @@ namespace linq_csharp_console_proyecto.Class
             this.animalesCollection.Add(new Animal() { Nombre = "Sapo", Color = "Verde" });
             this.animalesCollection.Add(new Animal() { Nombre = "Camaleon", Color = "Verde" });
             this.animalesCollection.Add(new Animal() { Nombre = "Gallina", Color = "Blanco" });
+        }
+
+        public IEnumerable<Book> InnerJoinLista()
+        {
+            var LibrosDespues2005 = librosCollection.Where(
+                p=>
+                p.PublishedDate.Year > 2005
+           );
+
+            var LibrosPagMayor500 = librosCollection.Where(
+                p =>
+                p.PageCount > 500
+           );
+
+            return LibrosDespues2005.Join(
+                    LibrosPagMayor500,
+                    p => p.Title,
+                    x => x.Title,
+                    (p, x) => new Book 
+                    {
+                        Title = p.Title,
+                        PageCount = x.PageCount,
+                        PublishedDate = x.PublishedDate
+                    }).ToList();
+
+
+            //Basico
+            /*
+            return LibrosDespues2005.Join(
+                    LibrosPagMayor500,
+                    p => p.Title,
+                    x => x.Title,
+                    (p, x) => p
+                );
+            */
+
+        }
+
+        public ILookup<char, Book> funRetirnLista_lookup()
+        {
+            var data = librosCollection
+                .ToLookup(
+                    s => s.Title[0],
+                    s => s
+                );
+            return data;
         }
 
         public IEnumerable<IGrouping<string, Animal>> AnimalesGroupColor_Reto()
