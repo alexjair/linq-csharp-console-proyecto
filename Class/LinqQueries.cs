@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace linq_csharp_console_proyecto.Class
 {
@@ -36,6 +37,112 @@ namespace linq_csharp_console_proyecto.Class
             this.animalesCollection.Add(new Animal() { Nombre = "Gallina", Color = "Blanco" });
         }
 
+        public IEnumerable<IGrouping<string, Animal>> AnimalesGroupColor_Reto()
+        {
+            return animalesCollection.GroupBy(p => p.Color);
+        }
+
+        public IEnumerable<IGrouping<int, Book>> LibrosDespuesdel2000AgrupadosporAno()
+        {
+            return librosCollection.Where(p => p.PublishedDate.Year >= 2000).GroupBy(p => p.PublishedDate.Year);
+        }
+
+        public double funPromedioCaracteresTitulos_Lista()
+        {
+            var MSAverageSalary = librosCollection.Average(emp => emp.Title.Length);
+            return MSAverageSalary;
+        }
+
+        public string TitulosDeLibrosDespuesDel2015Concatenados()
+        {
+            return librosCollection
+                    .Where(p => p.PublishedDate.Year > 2015)
+                    .Aggregate("", (TitulosLibros, next) =>
+                    {
+                        if (TitulosLibros != string.Empty)
+                            TitulosLibros += " - " + next.Title;
+                        else
+                            TitulosLibros += next.Title;
+
+                        return TitulosLibros;
+                    });
+        }
+
+        public int Sum_CantidadDePaginas( int vNumPagMin, int NumPagMax)
+        {
+            int TotalSalaryMS = 0;
+            
+            //Using Method Syntax
+            TotalSalaryMS = librosCollection
+                .Where(
+                    emp => 
+                    emp.PageCount >= vNumPagMin &&
+                    emp.PageCount <= NumPagMax
+                )
+                .Sum(
+                    emp => 
+                    emp.PageCount
+                );
+            return TotalSalaryMS;   
+        }
+
+        public Book MaxBy_LibroFechaPublicaionMaxRecinte()
+        {
+            Book myLibro;
+
+            /*
+            myLibro = librosCollection
+                .MaxBy(
+                    p =>
+                    p.PublishedDate
+            );
+            */
+
+            //solucionar el null
+            myLibro = librosCollection.MaxBy(
+                    b => b.PublishedDate
+                ) is null ? new Book() : librosCollection.MaxBy(b => b.PublishedDate);
+
+            return myLibro;
+        }
+
+        public Book MinBy_LibroMenorCantidadPaginas()
+        {
+            Book myLibro;
+            
+            myLibro = librosCollection.Where(
+                    p => 
+                    p.PageCount > 0
+                )
+                .MinBy(
+                    p => 
+                    p.PageCount
+                );
+
+            return myLibro;
+        }
+
+        public long funMaxNumeroPaginasLibro()
+        {
+            long MaxCantidad;
+
+            MaxCantidad = librosCollection.Max(
+                p => p.PageCount
+                );
+
+            return MaxCantidad;
+        }
+
+        public DateTime funMinDateTime()
+        {
+            DateTime MinDate;
+
+            MinDate = librosCollection.Min(
+                p => p.PublishedDate
+                );
+
+            return MinDate;
+        }
         public long funCantidad_libros(int vNumMin, int vNumMax)
         {
             long QSCount = 0;

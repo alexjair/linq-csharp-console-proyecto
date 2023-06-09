@@ -52,9 +52,69 @@ funImprimirJson(linq.TresPrimeroLibrosDeLaCollecionBook());
 
 //count
 //Camtidad de Libros entre 200 y 500
-Console.WriteLine($" Cantidad de Libros entre 200 y 500: {linq.funCantidad_libros(200, 500)}");
+//Console.WriteLine($" Cantidad de Libros entre 200 y 500: {linq.funCantidad_libros(200, 500)}");
+
+//Min
+//Console.WriteLine($" Minima fecha de publicación: {linq.funMinDateTime()}");
+//Max
+//Console.WriteLine($" Maxina cantidad de Paginas: {linq.funMaxNumeroPaginasLibro()}");
+
+//Minby
+//Console.WriteLine($" Libro hojas > 0 y minimo:");
+//var myLibro = linq.MinBy_LibroMenorCantidadPaginas();
+//Console.WriteLine($"{myLibro.Title} - {myLibro.PageCount}");
+
+//Maxby
+/*
+Console.WriteLine($" Libro fecha de Publicaion mas recinte:");
+var myLibroMax = linq.MaxBy_LibroFechaPublicaionMaxRecinte();
+Console.WriteLine($"{myLibroMax.Title} - {myLibroMax.PublishedDate}");
+*/
+
+//Sum
+//Console.WriteLine($" Suma de paginas entre 0 y 500: {linq.Sum_CantidadDePaginas(0, 500)}");
+
+//Aggregate
+//Libros publicados despues del 2015
+//Console.WriteLine(linq.TitulosDeLibrosDespuesDel2015Concatenados());
+
+//Averge
+//Console.WriteLine($" Cantidad promedio de caracteres del titulo de lista: {linq.funPromedioCaracteresTitulos_Lista()}");
+
+//Libros publicados a partir del 2000 agrupados por ano
+//ImprimirGrupo(linq.LibrosDespuesdel2000AgrupadosporAno());
+
+//Retorna los datos de la collecion Animales agrupada por Color
+ImprimirGrupoAnimales(linq.AnimalesGroupColor_Reto());
 
 
+void ImprimirGrupoAnimales(IEnumerable<IGrouping<string, Animal>> Lista)
+{
+    foreach (var grupo in Lista)
+    {
+        Console.WriteLine("");
+        Console.WriteLine($"Grupo: {grupo.Key}");
+        Console.WriteLine("{0,-60} {1, 15}\n", "Nombre", "Color");
+        foreach (var item in grupo)
+        {
+            Console.WriteLine("{0,-60} {1, 15} ", item.Nombre, item.Color );
+        }
+    }
+}
+
+void ImprimirGrupo(IEnumerable<IGrouping<int, Book>> ListadeLibros)
+{
+    foreach (var grupo in ListadeLibros)
+    {
+        Console.WriteLine("");
+        Console.WriteLine($"Grupo: {grupo.Key}");
+        Console.WriteLine("{0,-60} {1, 15} {2, 15}\n", "Titulo", "N. Paginas", "Fecha publicacion");
+        foreach (var item in grupo)
+        {
+            Console.WriteLine("{0,-60} {1, 15} {2, 15}", item.Title, item.PageCount, item.PublishedDate.Date.ToShortDateString());
+        }
+    }
+}
 
 void funImprimirJsonAnimal(IEnumerable<Animal> dt)
 {
